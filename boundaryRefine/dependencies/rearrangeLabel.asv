@@ -1,0 +1,16 @@
+function rearrangeLabel(label)
+
+stats_org = regionprops3(label,'Volume','VoxelIdxList');
+
+validLst=stats_org.Volume>0;
+
+validIdLst=find(validLst);
+invalidLst=find(~validLst);
+newValidLst=[];
+
+while invalidLst(1)<validIdLst(end)
+    label(stats_org.VoxelIdxList{validIdLst(end)})=invalidLst(1);
+    validIdLst(end)=[];invalidLst(1)=[];
+end
+
+end
