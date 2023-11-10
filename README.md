@@ -1,6 +1,6 @@
 # Welcome to PrinCut-Auto
 
-PrinCut-auto is based on multi-scale **Prin**cipal Curvature and Min-**Cut** optimization, and it serves as software providing both unsupervised 3D cell detection and manual detection refinement.
+PrinCut-auto is based on statistic-based multi-scale **Prin**cipal Curvature and Min-**Cut** optimization, and it serves as software providing both unsupervised 3D cell detection and manual detection refinement.
 
 <p align="center">
  <img src="./figure/GUI.png" width="70%">
