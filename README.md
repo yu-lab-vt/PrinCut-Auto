@@ -46,7 +46,7 @@ Secondly, a max-flow min-cut optimization is utilized to expand the cell seeds t
 
 Thirdly, hypothesis testing based on order statistics is employed to eliminate false positive detections grown from noise seeds. 
 
-Lastly, manual refinement is offered as an optional step to enhance the detection results, mirroring the functionality available in PrinCut-manual.
+Lastly, manual refinement is offered as an optional step to enhance the detection results. PrinCut will crop a sub-image, whose size is based on *crop size*, to generate a min-cut network, and use the pixel the user clicked as the source of the network to grow a new detection.
 
 ## Citation
 If you find the code useful for your research, please cite our paper.
