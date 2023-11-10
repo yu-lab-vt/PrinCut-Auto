@@ -10,7 +10,7 @@ PrinCut-Auto (multi-scale **Prin**cipal Curvature and Min-**Cut** optimization b
 
 - Robust to noisy data
 - Robust to crowded data
-- Sensitive to inter-cellular gaps
+- Sensitive to inter-cellular gaps in different scales
 - Manually add, delete, split, or merge 3D cell labels by merely clicking
 
 
