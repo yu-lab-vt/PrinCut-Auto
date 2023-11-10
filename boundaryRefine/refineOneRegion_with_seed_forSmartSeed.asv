@@ -1,0 +1,75 @@
+function [newLabel, comMaps] = refineOneRegion_with_seed_forSmartSeed(seed_id, comMaps,option)
+% refine the seed region indicate by index in yxz
+
+% It remove the crop part outside for parallel computation 
+% by mengfan  10/05/2022
+
+% NOTE: it is possible the yxz is not exactly the same as seed_id label
+% indicates, e.g. the seed is relabeled. We view yxz as the correct one.
+
+smartSeedRegion=comMaps.score3dMap>0;
+smartSeedRegion=comMaps.score3dMap==min(comMaps.score3dMap(smartSeedRegion));
+
+%% gap detection based on min cut
+comMaps.score3dMap(comMaps.score3dMap<0) = 0;
+min_pv = min(comMaps.score3dMap(:));
+max_pv = max(comMaps.score3dMap(:));
+comMaps.score3dMap = scale_image(comMaps.score3dMap, 1e-3,1, min_pv, max_pv);
+
+strel_rad = option.shift;
+strel_ker = getKernel(strel_rad);
+% strel_ker_seed = getKernel(ceil(strel_rad/10));
+strel_ker_seed = getKernel([1 1 0]);
+fMap = comMaps.regComp;
+fMap = imdilate(fMap,strel_ker);
+fMap((comMaps.idComp ~= seed_id) & (comMaps.idComp > 0)) = 0;
+% com = bwconncomp(comMaps.newIdComp);
+% com = bwconncomp(imdilate(comMaps.newIdComp,strel_ker_seed));
+
+com = imdilate(comMaps.newIdComp,strel_ker_seed)>0;
+if isfield(option,"NotDiaFlag")&& option.NotDiaFlag
+    com = comMaps.newIdComp>0;
+end
+
+newLabel = zeros(size(fMap));
+for ii = 1
+    sMap = false(size(fMap));
+    sMap(com) = true;
+    tMap = true(size(fMap));
+    tMap(fMap) = false;
+    scoreMap = comMaps.score3dMap;
+    scoreMap(scoreMap<0) = 0;
+    if isfield(option,"smartSeedFlag")&& option.smartSeedFlag
+        sMap=getSmartSeed(scoreMap,fMap,sMap,smartSeedRegion);
+    end
+    [dat_in, src, sink] = graphCut_negHandle_mat(scoreMap, fMap, sMap, ...
+        tMap, 10, [1 option.costDesign], true);       % before fusion
+
+    G = digraph(dat_in(:,1),dat_in(:,2),dat_in(:,3));
+    if ~isempty(find(isnan(dat_in(:)), 1)) || isnan(sink)
+        continue;
+    end
+    [~,~,cs,~] = maxflow(G, src, sink); % cs: fg, ct: bg
+    cs = cs(cs<=numel(newLabel));
+
+    cur_l = newLabel(cs);
+    if length(unique(cur_l))>2
+        keyboard;
+    end
+    newLabel(cs) = ii;
+end
+
+
+
+end
+
+function strel_ker = getKernel(strel_rad)
+
+    strel_ker = ones(strel_rad*2+1);
+    ratio=size(strel_ker,1)/size(strel_ker,3);
+
+    [xx,yy,zz] = ind2sub_direct(size(strel_ker), find(strel_ker));
+    dist = sqrt( (xx - strel_rad(1)-1).^2 + (yy - strel_rad(2)-1).^2 + ( (zz -strel_rad(3)-1)*ratio ).^2 );
+    strel_ker(dist>=strel_rad(1)) = 0;
+    strel_ker = strel(strel_ker);
+end
