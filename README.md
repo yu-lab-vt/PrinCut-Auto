@@ -37,11 +37,11 @@ https://github.com/yu-lab-vt/PrinCut-Auto/assets/45985407/4b5b38e8-0ed2-4494-a5d
 
 Keyboard short cut is available for convenience: *F* for *add a cell*, *D* for *delete a cell*, *V* for *split a cell*, *C* for *Merge two cells*, *W* for enable/disable overlay, *Q* and *E* for move along z-axis, *T* for randomly changing color for all labels.
 
-## How it works
+## Why it works
 
 <img src="https://github.com/yu-lab-vt/PrinCut-Auto/assets/45985407/59595c39-8fe6-439c-87b3-7edeb1e04d82" title="siân is the king of the universe" width="60%" align="right">
 
-PrinCut-Auto use statistic-based multi-scale principal curvature (MSPC) to identify the cell seeds, addressing the issue that traditional features like intensity contrast, gradient, or curvature struggle to robustly identify gaps between closely situated cells within noisy backgrounds. MSPC has a capability that matches or potentially surpasses human-level accuracy in detecting inter-cellular gaps in noisy data.
+PrinCut-Auto use a statistic-based multi-scale principal curvature (MSPC) to identify the cell seeds, addressing the issue that traditional features like intensity contrast, gradient, or curvature struggle to robustly identify gaps between closely situated cells within noisy backgrounds. MSPC has a capability that matches or potentially surpasses human-level accuracy in detecting inter-cellular gaps in noisy data.
 
 The right figure is a simulated experiments to compare the traditional max principal curvature with single scale and MSPC. (a) Simulated data with noise. The data shows 70 pairs of cells in proximity to each other. The cells are arranged from left to right in order of decreasing intensity, while from top to bottom, the cells and inter-cell gaps diminish in size. (b) The signal of simulated data (c) Single-Scale Principal Curvature with Gaussian Smoothing (STD = 3). (d) Threshold on Single-Scale Principal Curvature ($z \geq 2$), 27 pairs of cells are correctly detected. (e) MSPC result (f) Threshold on MSPC ($z \geq 2$), 40 pairs of cells are correctly detected.
 
