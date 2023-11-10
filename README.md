@@ -49,6 +49,8 @@ The pixels with MSPC larger than the value of *z score threshold* are considered
 
 ## Requirement
 
+The standalone App is run and tested on the Windows system. The Matlab App is run and tested on Matlab 2023a for both Windows and Ubuntu Systems.
+
 A GPU is required for faster feature calculation. 
 
 To use the code for a faster and more flexible analysis, MATLAB 2023a or a later version is required.
