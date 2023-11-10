@@ -51,7 +51,7 @@ The pixels with MSPC larger than the value of *z score threshold* are considered
 
 A GPU is required for faster feature calculation. 
 
-To use the code for a more flexible analysis, MATLAB 2023a or a later version is required.
+To use the code for a faster and more flexible analysis, MATLAB 2023a or a later version is required.
 
 ## Citation
 If you find the code useful for your research, please cite our paper.
