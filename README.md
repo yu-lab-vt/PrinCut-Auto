@@ -39,7 +39,7 @@ Keyboard short cut is available for convenience: *F* for *add a cell*, *D* for *
 
 ## How it works
 
-<img src="https://github.com/yu-lab-vt/PrinCut-Auto/assets/45985407/59595c39-8fe6-439c-87b3-7edeb1e04d82" title="siân is the king of the universe" width="50%" align="right">
+<img src="https://github.com/yu-lab-vt/PrinCut-Auto/assets/45985407/59595c39-8fe6-439c-87b3-7edeb1e04d82" title="siân is the king of the universe" width="60%" align="right">
 
 PrinCut-Auto use statistic-based multi-scale principal curvature (MSPC) to identify the cell seeds, addressing the issue that traditional features like intensity contrast, gradient, or curvature struggle to robustly identify gaps between closely situated cells within noisy backgrounds. MSPC has a capability that matches or potentially surpasses human-level accuracy in detecting inter-cellular gaps in noisy data.
 
