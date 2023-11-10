@@ -38,15 +38,13 @@ Keyboard short cut is available for convenience: *F* for *add a cell*, *D* for *
 
 ## How it works
 
-PrinCut-Auto is based on a novel workflow integrating four crucial steps:
+<img src="https://github.com/yu-lab-vt/PrinCut-Auto/assets/45985407/59595c39-8fe6-439c-87b3-7edeb1e04d82" title="siân is the king of the universe" width="40%" align="right">
 
-Firstly, we proposed a novel statistic-based multi-scale principal curvature (MSPC) to identify the cell seeds, addressing the issue that traditional features like intensity contrast, gradient, or curvature struggle to robustly identify gaps between closely situated cells within noisy backgrounds. MSPC has a capability that matches or potentially surpasses human-level accuracy in detecting inter-cellular gaps in noisy data.
+PrinCut-Auto use statistic-based multi-scale principal curvature (MSPC) to identify the cell seeds, addressing the issue that traditional features like intensity contrast, gradient, or curvature struggle to robustly identify gaps between closely situated cells within noisy backgrounds. MSPC has a capability that matches or potentially surpasses human-level accuracy in detecting inter-cellular gaps in noisy data.
 
-Secondly, a max-flow min-cut optimization is utilized to expand the cell seeds to the expected detection boundaries. 
+The right figure is a simulated experiments to compare the traditional max principal curvature with single scale and MSPC. (a) Simulated data with noise. The data shows 70 pairs of cells in proximity to each other. The cells are arranged from left to right in order of decreasing intensity, while from top to bottom, the cells and inter-cell gaps diminish in size. (b) The signal of simulated data (c) Single-Scale Principal Curvature with Gaussian Smoothing (STD = 3). (d) Threshold on Single-Scale Principal Curvature ($z \geq 2$), 27 pairs of cells are correctly detected. (e) MSPC result (f) Threshold on MSPC ($z \geq 2$), 40 pairs of cells are correctly detected.
 
-Thirdly, hypothesis testing based on order statistics is employed to eliminate false positive detections grown from noise seeds. 
-
-Lastly, manual refinement is offered as an optional step to enhance the detection results. PrinCut will crop a sub-image, whose size is based on *crop size*, to generate a min-cut network, and use the pixel the user clicked as the source of the network to grow a new detection.
+The pixels with MSPC larger than the value of *z score threshold* are considered as boundaries or gaps of the cell and the region enveloped by boundaries is considered as cell seeds, which is the central region of potential cells. Then we use the min-cut algorithm to grow a cell seed to its boundary. The min-cut algorithm will find a cut between the current cell seed and the rest cell seeds that maximizes the principal curvature while minimizing the length, and the pixels within the cut are considered as the corresponding cell label of the current cell seed. After growing all seeds to labels, we use hypothesis testing to remove false positives with low-intensity contrast. Lastly, manual refinement is offered as an optional step to enhance the detection results. PrinCut will crop a sub-image, whose size is based on *crop size*, to generate a min-cut network, and use the pixel the user clicked as the source of the network to grow a new detection.
 
 ## Citation
 If you find the code useful for your research, please cite our paper.
