@@ -13,8 +13,9 @@ A GPU is required for faster feature calculation. A standalone GUI is provided, 
  <img src="./figure/GUI.png" width="70%">
 </p>
 
-## GUI Usage
-**Automatic 3D cell detection**: 
+## Usage
+
+### Automatic 3D cell detection
 
 Disable the "GPU visualization" option if your computer has limited GPU memory (> Pixel number * 4 * 10^-8 GB memory required).  Save your data in tif format data and click the *load data* button to read it. After loading the data, Adjust the *min intensity* and *max intensity* to adjust the contrast of the data. Select the figure and use the scroll wheel to zoom in and out, drag the figure to move in x and y directions, and use the bar at the bottom of the figure to move along z direction.
 
@@ -26,7 +27,7 @@ Adjust the *x/z resolution*. For example, if your x resolution is 1 um/pixel whi
  <img src="./figure/GUIworkflow2.png" width="100%">
 </p>
 
-**Manual annotation assistance**:
+### Manual annotation assistance
 
 Add, delete, split, or merge 3D cells by clicking:
 
@@ -35,5 +36,19 @@ https://github.com/yu-lab-vt/PrinCut-Auto/assets/45985407/4b5b38e8-0ed2-4494-a5d
 
 Keyboard short cut is available for convenience: *F* for *add a cell*, *D* for *delete a cell*, *V* for *split a cell*, *C* for *Merge two cells*, *W* for enable/disable overlay, *Q* and *E* for move along z-axis, *T* for randomly changing color for all labels.
 
+## How it works
 
+PrinCut-Auto is based on a novel workflow integrating four crucial steps:
 
+Firstly, we proposed a novel statistic-based multi-scale principal curvature (MSPC) to identify the cell seeds, addressing the issue that traditional features like intensity contrast, gradient, or curvature struggle to robustly identify gaps between closely situated cells within noisy backgrounds. MSPC has a capability that matches or potentially surpasses human-level accuracy in detecting inter-cellular gaps in noisy data.
+
+Secondly, a max-flow min-cut optimization is utilized to expand the cell seeds to the expected detection boundaries. 
+
+Thirdly, hypothesis testing based on order statistics is employed to eliminate false positive detections grown from noise seeds. 
+
+Lastly, manual refinement is offered as an optional step to enhance the detection results, mirroring the functionality available in PrinCut-manual.
+
+## Citation
+If you find the code useful for your research, please cite our paper.
+
+*TBA*
