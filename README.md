@@ -1,17 +1,18 @@
-## Overview
-PrinCut-auto is a tool providing both unsupervised automatic 3D cell detection and manual annotation assistance. 
+# Welcome to PrinCut-Auto
 
-The automatic 3D cell detection is based on multi-scale PRINcipal Curvature and min-CUT optimization. This detector is robust to noise and sensitive to inter-cellular gaps, achieving remarkable cell detection accuracy across various scenarios.
-
-The manual annotation assistance is used to refine the detection result or generate more training datasets for supervised models. Users can merely click the cell to add, delete, split, or merge 3D cell labels.
-
-A GPU is required for faster feature calculation. A standalone GUI is provided, but to use the code for a more flexible analysis, MATLAB 2023a or a later version is required.
-
-
+PrinCut-auto is based on multi-scale **Prin**cipal Curvature and Min-**Cut** optimization, and it serves as software providing both unsupervised 3D cell detection and manual detection refinement.
 
 <p align="center">
  <img src="./figure/GUI.png" width="70%">
 </p>
+
+## Advantage:
+
+- Robust to noisy data
+- Robust to crowded data
+- Sensitive to inter-cellular gaps
+- Manually add, delete, split, or merge 3D cell labels by merely clicking
+
 
 ## Usage
 
@@ -45,6 +46,12 @@ PrinCut-Auto use statistic-based multi-scale principal curvature (MSPC) to ident
 The right figure is a simulated experiments to compare the traditional max principal curvature with single scale and MSPC. (a) Simulated data with noise. The data shows 70 pairs of cells in proximity to each other. The cells are arranged from left to right in order of decreasing intensity, while from top to bottom, the cells and inter-cell gaps diminish in size. (b) The signal of simulated data (c) Single-Scale Principal Curvature with Gaussian Smoothing (STD = 3). (d) Threshold on Single-Scale Principal Curvature ($z \geq 2$), 27 pairs of cells are correctly detected. (e) MSPC result (f) Threshold on MSPC ($z \geq 2$), 40 pairs of cells are correctly detected.
 
 The pixels with MSPC larger than the value of *z score threshold* are considered as boundaries or gaps of the cell and the region enveloped by boundaries is considered as cell seeds, which is the central region of potential cells. Then we use the min-cut algorithm to grow a cell seed to its boundary. The min-cut algorithm will find a cut between the current cell seed and the rest cell seeds that maximizes the principal curvature while minimizing the length, and the pixels within the cut are considered as the corresponding cell label of the current cell seed. After growing all seeds to labels, we use hypothesis testing to remove false positives with low-intensity contrast. Lastly, manual refinement is offered as an optional step to enhance the detection results. PrinCut will crop a sub-image, whose size is based on *crop size*, to generate a min-cut network, and use the pixel the user clicked as the source of the network to grow a new detection.
+
+## Requirement
+
+A GPU is required for faster feature calculation. 
+
+To use the code for a more flexible analysis, MATLAB 2023a or a later version is required.
 
 ## Citation
 If you find the code useful for your research, please cite our paper.
